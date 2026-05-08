@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, AlertTriangle, ShieldAlert, Crosshair, Send, MessageSquare, ChevronDown } from 'lucide-react';
+import { Activity, AlertTriangle, ShieldAlert, Crosshair, Send, MessageSquare, ChevronDown, BookOpen, FileText } from 'lucide-react';
 import './PatientHub.css';
 
 const PatientHub = () => {
@@ -141,6 +141,20 @@ const PatientHub = () => {
                 <strong>אפס (0 מ״ג) מורפיום ניתן.</strong><br/><br/>
                 הערה: הפצוע קיבל <strong>פנטניל 800mcg (סוכריה)</strong> ב- T+12:00. <br/>
                 בדיקת התוויות נגד: הפצוע במצב של תת-לחץ דם (85/50). הימנע מנרקוטיקה נוספת; מומלץ מתן קטמין 50mg IM/IN במידה ונדרש שיכוך כאבים נוסף ע״פ הנחיות TCCC.
+                
+                <div style={{marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.1)'}}>
+                  <div style={{fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '8px', fontWeight: 700, letterSpacing: '0.5px'}}>סימוכין ודוקטרינה:</div>
+                  <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                    <div className="source-tile">
+                      <BookOpen size={12} />
+                      <span>פרוטוקול TCCC 2024</span>
+                    </div>
+                    <div className="source-tile">
+                      <FileText size={12} />
+                      <span>פקודת קרפ״ר 1982/ג</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
