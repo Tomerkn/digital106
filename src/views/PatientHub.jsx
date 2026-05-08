@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Activity, AlertTriangle, ShieldAlert, Crosshair, Send, MessageSquare, ChevronDown, BookOpen, FileText, Mic } from 'lucide-react';
 import './PatientHub.css';
 
 const PatientHub = () => {
+  const { id } = useParams();
+  const patientName = id === 'alpha-01' ? 'אלפא-01' : (id === 'bravo-02' ? 'בראבו-02' : id);
   const [activeTab, setActiveTab] = useState('summary');
   const [showSourceOverlay, setShowSourceOverlay] = useState(false);
   const [confidence] = useState(94); // Mock RAGAS score
@@ -15,7 +18,7 @@ const PatientHub = () => {
           <h1 className="view-title">דשבורד פצוע <span className="text-secondary" style={{marginRight: '16px'}}>דו״ח מ.נ.מ.ט</span></h1>
           <div style={{marginTop: '8px', display: 'flex', gap: '16px'}}>
             <span className="badge badge-critical">דחיפות פינוי: דחוף</span>
-            <span className="badge badge-active">מזהה: אלפא-01</span>
+            <span className="badge badge-active">מזהה: {patientName}</span>
           </div>
         </div>
         <div style={{textAlign: 'left'}}>

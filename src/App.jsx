@@ -67,7 +67,7 @@ const Sidebar = (props) => {
           <>
             <div style={{height: '1px', background: 'var(--border-color)', margin: '16px 20px'}}></div>
             <div style={{padding: '0 20px', marginBottom: '8px', fontSize: '12px', fontWeight: 700, color: 'var(--text-active)'}}>
-              פצוע נוכחי: {patientId === 'alpha-01' ? 'אלפא-01' : patientId}
+              פצוע נוכחי: {patientId === 'alpha-01' ? 'אלפא-01' : (patientId === 'bravo-02' ? 'בראבו-02' : patientId)}
             </div>
             {patientNavItems.map((item) => {
               const Icon = item.icon;

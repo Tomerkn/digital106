@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Search, Filter, Clock, Pill, Save, CheckCircle, Eye, AlertTriangle, Activity } from 'lucide-react';
 import './CasualtyCard.css';
 
 const CasualtyCard = () => {
+  const { id } = useParams();
+  const patientName = id === 'alpha-01' ? 'אלפא-01' : (id === 'bravo-02' ? 'בראבו-02' : id);
   const [showOverlay, setShowOverlay] = useState(false);
   const [syncStatus, setSyncStatus] = useState('idle'); // idle | loading | success | error
   const [syncMessage, setSyncMessage] = useState('');
@@ -30,7 +33,7 @@ const CasualtyCard = () => {
           <h1 className="view-title">כרטיס רפואי <span className="text-secondary" style={{marginRight: '16px'}}>העברה לדרג ב׳</span></h1>
           <div style={{marginTop: '8px', display: 'flex', gap: '16px'}}>
             <span className="badge badge-safe">סטטוס: יציב</span>
-            <span className="badge badge-active">מזהה: אלפא-01</span>
+            <span className="badge badge-active">מזהה: {patientName}</span>
           </div>
         </div>
         <div>

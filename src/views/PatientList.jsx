@@ -141,7 +141,7 @@ const PatientList = () => {
             onClick={() => navigate(`/patient/${patient.id}/hub`)}
           >
             <div className="patient-card-header">
-                <div className="patient-id">{patient.id}</div>
+                <div className="patient-id">{patient.name}</div>
                 <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
                   <div className={`badge ${patient.status === 'דחוף' ? 'badge-critical' : 'badge-safe'}`}>
                     {patient.status}
