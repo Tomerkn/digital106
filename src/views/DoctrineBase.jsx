@@ -6,12 +6,17 @@ const DoctrineBase = () => {
   const [searchQuery, setSearchQuery] = useState('');
   
   const results = [
-    { id: 1, title: 'הנחיות TCCC: דימום מסיבי', match: '99.2%', section: 'סעיף 2.א' },
-    { id: 2, title: 'טיפול ממושך בשטח (PFC): המרת חסם עורקים', match: '94.5%', section: 'פרק 4' },
-    { id: 3, title: 'פרוטוקול שיכוך כאב (תת-לחץ דם)', match: '88.7%', section: 'סעיף 6.ב' },
+    { id: 1, title: 'הנחיות TCCC: דימום מסיבי', match: '99.2%', section: 'סעיף 2.א', content: 'הערך קיומו של דימום בלתי מזוהה ושלוט בכל מקורות הדימום...' },
+    { id: 2, title: 'טיפול ממושך בשטח (PFC): המרת חסם עורקים', match: '94.5%', section: 'פרק 4', content: 'המרת חסם עורקים תתבצע רק על ידי מטפל בכיר...' },
+    { id: 3, title: 'פרוטוקול שיכוך כאב (תת-לחץ דם)', match: '88.7%', section: 'סעיף 6.ב', content: 'במקרים של תת לחץ דם, אין לתת מורפיום...' },
   ];
 
+  const filteredResults = results.filter(res => 
+    res.title.includes(searchQuery) || res.section.includes(searchQuery)
+  );
+
   const [selectedDoc, setSelectedDoc] = useState(results[0]);
+  const [internalSearch, setInternalSearch] = useState('');
 
   return (
     <div className="view-container doctrine-container">
@@ -44,7 +49,7 @@ const DoctrineBase = () => {
           </div>
           
           <div className="results-list">
-            {results.map((res) => (
+            {filteredResults.map((res) => (
               <div 
                 key={res.id} 
                 className={`result-item ${selectedDoc.id === res.id ? 'active' : ''}`}
@@ -59,13 +64,29 @@ const DoctrineBase = () => {
                 </div>
               </div>
             ))}
+            {filteredResults.length === 0 && (
+              <div className="text-secondary" style={{padding: '20px', textAlign: 'center'}}>לא נמצאו מסמכים תואמים</div>
+            )}
           </div>
         </div>
 
         <div className="card viewer-card">
-          <div className="card-title" style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div className="card-title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={18} /> מציג מסמכים</div>
-            <div className="text-active" style={{fontSize: '12px', fontWeight: 600}}>{selectedDoc.title}</div>
+            <div style={{display: 'flex', gap: '12px', alignItems: 'center'}}>
+              <div className="input-with-icon" style={{width: '180px'}}>
+                <Search size={14} className="text-secondary" style={{right: '10px', left: 'auto'}} />
+                <input 
+                  type="text" 
+                  className="input-field doc-search-input" 
+                  placeholder="חפש בתוך המסמך..." 
+                  style={{fontSize: '12px', padding: '4px 30px 4px 8px'}}
+                  value={internalSearch}
+                  onChange={e => setInternalSearch(e.target.value)}
+                />
+              </div>
+              <div className="text-active" style={{fontSize: '12px', fontWeight: 600}}>{selectedDoc.title}</div>
+            </div>
           </div>
           
           <div className="document-page">

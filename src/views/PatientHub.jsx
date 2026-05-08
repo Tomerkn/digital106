@@ -203,7 +203,17 @@ const PatientHub = () => {
                 </div>
               </div>
               <div className="source-pane">
-                <div className="pane-label">פענוח AI (Digital Transformation)</div>
+                <div className="pane-label" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                  <span>פענוח AI (Digital Transformation)</span>
+                  <div className="input-with-icon" style={{width: '200px'}}>
+                    <Search size={14} className="text-secondary" style={{position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)'}} />
+                    <input 
+                      type="text" 
+                      placeholder="חיפוש במסמך..." 
+                      style={{fontSize: '11px', padding: '4px 30px 4px 8px', width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', color: 'white'}}
+                    />
+                  </div>
+                </div>
                 <div className="source-text-view">
                    <div className="badge badge-safe" style={{marginBottom: '12px'}}>נאמן למקור (94% Match)</div>
                    <p><strong>תרופות שניתנו:</strong></p>
