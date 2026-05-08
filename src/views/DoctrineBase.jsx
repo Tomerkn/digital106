@@ -69,7 +69,7 @@ const DoctrineBase = () => {
           </div>
           
           <div className="document-page">
-            <div className="badge badge-safe" style={{position: 'absolute', top: '16px', left: '16px'}}>תורה רשמית</div>
+            <div className="badge badge-safe" style={{position: 'absolute', top: '16px', left: '16px'}}>דוקטרינה מאושרת</div>
             <h2 className="doc-header">הנחיות לטיפול בפצועי פח״ע/מלחמה (TCCC)</h2>
             
             <h3 className="doc-subheader">2. דימום מסיבי</h3>

@@ -99,9 +99,20 @@ text-align: center;
 
 ---
 
+---
+
 ## 6. Iconography (Lucide Set)
 *   **Stroke Width:** `2px` for all icons.
 *   **Sizes:**
     *   Global Icons: `20px`.
     *   Dashboard Large: `32px`.
     *   Inline Small: `16px`.
+
+---
+
+## 7. Standard Labels & Military Context
+*   **Official Source Badge:** "דוקטרינה מאושרת" (Approved Doctrine).
+*   **Unit Profile:** "סרן תומר קנובלר" (Captain Tomer Knobler).
+*   **System Name:** "רפואה דיגיטלית" (Digital Medicine).
+
+
