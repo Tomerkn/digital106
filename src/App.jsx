@@ -83,7 +83,7 @@ const Sidebar = () => {
           <User size={32} className="avatar-icon text-active" />
           <div className="user-info flex-1">
             <div className="user-name">סרן תומר קנובלר</div>
-            <div className="user-role">רופא משפחה / קרפ״ג</div>
+            <div className="user-role">רופא</div>
           </div>
           <button className="logout-btn" onClick={() => window.location.reload()} title="התנתק">
             <LogOut size={18} className="text-secondary hover:text-critical transition" />
