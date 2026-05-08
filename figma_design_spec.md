@@ -111,12 +111,11 @@ text-align: center;
 ---
 
 ## 7. Standard Labels & Military Context
-*   **Official Source Badge:** "דוקטרינה מאושרת" (Approved Doctrine).
+*   **Official Source Badge:** "דוקטרינה מאושרת (ע״פ פקודה 1982/ג)".
 *   **Unit Profile:** "סרן תומר קנובלר" (Captain Tomer Knobler).
 *   **System Name:** "רפואה דיגיטלית" (Digital Medicine).
 *   **Module Name:** "בינת הפקודות" (AI Protocol Intelligence).
 *   **AI Model Label:** "מודל ידע מבוסס AI"
-
 
 
 
