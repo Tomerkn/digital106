@@ -8,6 +8,7 @@ const PatientList = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [processType, setProcessType] = useState('scan'); // 'scan' | 'upload'
+  const [progress, setProgress] = useState(0);
 
   const activePatients = [
     { id: 'alpha-01', name: 'אלפא-01', status: 'דחוף', time: 'T+00:14', hr: 135, injuries: 'דימום מסיבי' },
@@ -17,14 +18,30 @@ const PatientList = () => {
   const handleProcess = (type, targetPatientId) => {
     setProcessType(type);
     setIsProcessing(true);
-    // Simulate OCR and AI association
+    setProgress(0);
+    setScanResult(null);
+
+    // Simulate progress increment
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 98) {
+          clearInterval(interval);
+          return 98;
+        }
+        return prev + Math.floor(Math.random() * 15) + 5;
+      });
+    }, 200);
+
+    // Simulate OCR and AI association completion
     setTimeout(() => {
+      clearInterval(interval);
+      setProgress(100);
       setIsProcessing(false);
       setScanResult(targetPatientId);
       setTimeout(() => {
         navigate(`/patient/${targetPatientId}/hub`);
       }, 1500);
-    }, 2000);
+    }, 2500);
   };
 
   const triggerFileUpload = () => {
@@ -82,9 +99,15 @@ const PatientList = () => {
         </div>
 
         {isProcessing && (
-          <div className="scan-status active">
-            <div className="loader"></div>
-            <span>{processType === 'scan' ? 'מפענח טקסט (OCR) מתוך תמונה...' : 'מנתח קובץ דיגיטלי...'} ומשייך לפצוע מתאים...</span>
+          <div className="scan-status active" style={{flexDirection: 'column', gap: '12px'}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+              <div className="loader"></div>
+              <span>{processType === 'scan' ? 'מפענח טקסט (OCR) מתוך תמונה...' : 'מנתח קובץ דיגיטלי...'} ומשייך לפצוע מתאים...</span>
+            </div>
+            <div style={{width: '100%', background: 'var(--bg-panel-hover)', height: '4px', borderRadius: '2px', overflow: 'hidden'}}>
+              <div style={{width: `${progress}%`, height: '100%', background: 'var(--color-active)', transition: 'width 0.3s ease'}}></div>
+            </div>
+            <div className="text-active" style={{fontSize: '12px', fontWeight: 800}}>{progress}%</div>
           </div>
         )}
         
