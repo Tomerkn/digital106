@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  
+  --bg-dark: #0A0A0A;
+  --bg-panel: #141414;
+  --bg-panel-light: #1A1A1A;
+  --bg-panel-hover: #222222;
+  --border-color: #2D2D2D;
+  --text-primary: #FFFFFF;
+  --text-secondary: #9E9E9E;
+  --text-muted: #666666;
+  
+  --color-active: #00A3FF;
+  --color-active-dim: rgba(0, 163, 255, 0.15);
+  --color-safe: #00C853;
+  --color-safe-dim: rgba(0, 200, 83, 0.15);
+  --color-critical: #D32F2F;
+  --color-critical-dim: rgba(211, 47, 47, 0.15);
+  
+  --gradient-primary: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  --gradient-hover: linear-gradient(135deg, #FF8E53 0%, #FFA87D 100%);
+  
+  --radius: 16px; /* Increased radius to match the softer, rounded CPRGO style */
+  --radius-pill: 9999px;
+  
+  --font-base: 'Assistant', sans-serif;
+  
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* App-like feel */
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Utilities */
+.text-active { color: var(--color-active); }
+.text-safe { color: var(--color-safe); }
+.text-critical { color: var(--color-critical); }
+.text-secondary { color: var(--text-secondary); }
+
+.bg-panel { background-color: var(--bg-panel); }
+.border-panel { border: 1px solid var(--border-color); }
+.rounded { border-radius: var(--radius); }
+.shadow-panel { box-shadow: var(--shadow-sm); }
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-col { display: flex; flex-direction: column; }
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-base);
+  transition: all 0.2s ease;
+}
+
+input, textarea, select {
+  font-family: var(--font-base);
+  outline: none;
+}
+
+option {
+  background-color: var(--bg-panel);
+  color: var(--text-primary);
+}
+
+.glass-panel {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+}

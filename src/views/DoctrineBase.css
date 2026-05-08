@@ -1,0 +1,95 @@
+.doctrine-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-search {
+  padding-right: 48px !important;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 16px;
+  background-color: var(--bg-panel);
+}
+
+.doctrine-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+  min-height: 400px;
+}
+
+.results-card, .viewer-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.results-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.result-item {
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  cursor: pointer;
+  background-color: var(--bg-panel);
+  transition: all 0.2s;
+}
+
+.result-item:hover {
+  background-color: var(--bg-panel-hover);
+}
+
+.result-item.active {
+  border-color: var(--color-active);
+  background-color: var(--bg-panel-light);
+}
+
+.document-page {
+  flex: 1;
+  background-color: #0d0d0d;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 32px;
+  overflow-y: auto;
+  position: relative;
+  font-family: serif;
+}
+
+.doc-header {
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  font-family: var(--font-base);
+}
+
+.doc-subheader {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-family: var(--font-base);
+}
+
+.doc-paragraph {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: #dddddd;
+}
+
+.rag-highlight {
+  background-color: var(--bg-panel-light);
+  padding: 16px;
+  border-right: 4px solid var(--color-active);
+  margin-top: 32px;
+  font-family: var(--font-base);
+}
