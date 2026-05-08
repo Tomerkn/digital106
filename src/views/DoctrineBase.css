@@ -57,7 +57,6 @@
   padding: 32px;
   overflow-y: auto;
   position: relative;
-  font-family: serif;
 }
 
 .doc-header {
@@ -68,7 +67,6 @@
   padding-bottom: 16px;
   margin-top: 16px;
   margin-bottom: 24px;
-  font-family: var(--font-base);
 }
 
 .doc-subheader {
@@ -76,7 +74,6 @@
   font-weight: 700;
   margin-top: 32px;
   margin-bottom: 16px;
-  font-family: var(--font-base);
 }
 
 .doc-paragraph {
@@ -91,5 +88,4 @@
   padding: 16px;
   border-right: 4px solid var(--color-active);
   margin-top: 32px;
-  font-family: var(--font-base);
 }

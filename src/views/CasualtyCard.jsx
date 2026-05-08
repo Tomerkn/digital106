@@ -1,9 +1,27 @@
 import React, { useState } from 'react';
-import { Search, Filter, Clock, Pill, Save, CheckCircle, Eye } from 'lucide-react';
+import { Search, Filter, Clock, Pill, Save, CheckCircle, Eye, AlertTriangle, Activity } from 'lucide-react';
 import './CasualtyCard.css';
 
 const CasualtyCard = () => {
   const [showOverlay, setShowOverlay] = useState(false);
+  const [syncStatus, setSyncStatus] = useState('idle'); // idle | loading | success | error
+  const [syncMessage, setSyncMessage] = useState('');
+
+  const handleSync = async () => {
+    setSyncStatus('loading');
+    try {
+      const response = await fetch('/api/sync-ehr');
+      if (response.ok) {
+        setSyncStatus('success');
+        setSyncMessage('הנתונים סונכרנו בהצלחה למערכת ה-EHR');
+      } else {
+        throw new Error('Sync failed');
+      }
+    } catch (error) {
+      setSyncStatus('error');
+      setSyncMessage('שגיאה בסנכרון הנתונים. אנא נסה שוב.');
+    }
+  };
 
   return (
     <div className="view-container">
@@ -16,8 +34,27 @@ const CasualtyCard = () => {
           </div>
         </div>
         <div>
-          <button className="btn btn-gradient">
-            <Save size={18} /> <span style={{marginRight: '8px'}}>סנכרון סופי לתיק רפואי (EHR)</span>
+          {syncStatus === 'success' && (
+            <div className="text-safe" style={{marginBottom: '12px', fontSize: '14px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end'}}>
+              <CheckCircle size={16} /> {syncMessage}
+            </div>
+          )}
+          {syncStatus === 'error' && (
+            <div className="text-critical" style={{marginBottom: '12px', fontSize: '14px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'flex-end'}}>
+              <AlertTriangle size={16} /> {syncMessage}
+            </div>
+          )}
+          <button 
+            className="btn btn-gradient" 
+            onClick={handleSync}
+            disabled={syncStatus === 'loading'}
+            style={{ opacity: syncStatus === 'loading' ? 0.7 : 1 }}
+          >
+            {syncStatus === 'loading' ? (
+              <><Activity size={18} className="scanning-pulse" /> <span style={{marginRight: '8px'}}>ממיר ל-FHIR ומסנכרן...</span></>
+            ) : (
+              <><Save size={18} /> <span style={{marginRight: '8px'}}>סנכרון סופי לתיק רפואי (EHR)</span></>
+            )}
           </button>
         </div>
       </div>
