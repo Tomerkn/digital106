@@ -1,83 +1,107 @@
-# Design Specification: Digital Medicine (רפואה דיגיטלית)
+# Pixel-Perfect Design Specification: Digital Medicine (רפואה דיגיטלית)
 
-This document provides a comprehensive breakdown of the tactical medical interface to enable precise recreation in Figma.
-
----
-
-## 1. Design System & Tokens
-
-### Color Palette (High Contrast / Dark Mode)
-*   **Background (Deep):** `#0A0A0A` (Deep Charcoal/Black)
-*   **Panel Background:** `#141414` (Lighter Charcoal)
-*   **Panel Hover:** `#222222`
-*   **Border/Stroke:** `#2D2D2D`
-*   **Primary Accent (Active):** `#00A3FF` (Electric Blue)
-*   **Safe/Success:** `#00C853` (Forest Green)
-*   **Critical/Alert:** `#D32F2F` (Saturated Red)
-*   **Primary Gradient (Buttons):** Linear `135deg` from `#FF6B6B` to `#FF8E53` (CPRGO Orange/Coral)
-
-### Typography
-*   **Font Family:** `Assistant` (Google Fonts) - High legibility Hebrew Sans-serif.
-*   **Weights:** Regular (400), SemiBold (600), Bold (700), ExtraBold (800).
-*   **Base Sizes:** Body (15px/16px), Card Title (18px), View Title (32px).
-
-### Shape & Geometry
-*   **Corner Radius:** `16px` for standard cards/panels.
-*   **Pill Radius:** `9999px` (fully rounded) for buttons, inputs, and action rows.
-*   **Shadows:** Soft, deep shadows for depth (`0 8px 24px rgba(0,0,0,0.6)`).
+This document provides exact technical values and CSS properties to ensure 100% accuracy when recreating the interface in Figma.
 
 ---
 
-## 2. Global Layout Structure
+## 1. Core Visual Tokens (CSS Constants)
 
-### Layout: Sidebar + Main Content
+| Token | Value | Figma Property |
+| :--- | :--- | :--- |
+| **Background (Main)** | `#0A0A0A` | Fill |
+| **Panel Background** | `#141414` | Fill |
+| **Panel Hover** | `#222222` | Fill |
+| **Border Color** | `#2D2D2D` | Stroke (1px Inside) |
+| **Text Primary** | `#FFFFFF` | Fill |
+| **Text Secondary** | `#9E9E9E` | Fill |
+| **Accent Active** | `#00A3FF` | Fill / Stroke |
+| **Accent Safe** | `#00C853` | Fill / Stroke |
+| **Accent Critical** | `#D32F2F` | Fill / Stroke |
+| **Gradient Start** | `#FF6B6B` | Linear Gradient (0%) |
+| **Gradient End** | `#FF8E53` | Linear Gradient (100%) |
+
+---
+
+## 2. Typography (Assistant Font)
+
+*   **View Titles:** `32px`, ExtraBold (800), Letter-spacing: `0.5px`.
+*   **Card Titles:** `18px`, Bold (700), Color: `white`.
+*   **Body Text:** `15px`, Regular (400), Line-height: `1.6`.
+*   **Pill Text:** `14px`, Bold (700).
+*   **Badges:** `13px`, ExtraBold (800), Uppercase.
+*   **Mono/Numeric:** Use `Assistant` Bold (700) - Avoid fallback to generic monospace.
+
+---
+
+## 3. Structural Dimensions & Spacing
+
+*   **Global Padding:** `40px` (Main views).
 *   **Sidebar Width:** `280px`.
-*   **Sidebar Style:** Dark gradient background, left border separator.
-*   **Sidebar Header:** System Logo ("רפואה דיגיטלית" Badge) + Secure Connection Status.
-*   **Sidebar Nav:** Vertical list of pill-shaped links with Lucide icons.
-*   **Sidebar Footer:** User Profile pill containing Name ("סרן תומר קנובלר"), Role ("רופא"), Avatar, and Logout button.
+*   **Card Padding:** `32px` all sides.
+*   **Pill Row Height:** `56px` fixed (or `16px` top/bottom padding).
+*   **Gaps:**
+    *   Grid Gaps: `24px`.
+    *   Section Gaps: `40px`.
+    *   Icon-to-Text Gap: `12px` or `16px`.
+*   **Corner Radii:**
+    *   Cards: `16px`.
+    *   Buttons/Pills/Inputs: `999px` (Full circle ends).
 
 ---
 
-## 3. Screen-by-Screen Flow
+## 4. Specific Component Specs (CSS to Figma)
 
-### Screen 1: Login Gateway
-*   **Layout:** Centered modal card on deep background.
-*   **Header:** Shield Icon + "רפואה דיגיטלית" Title + "הזדהות מטפל" Subtitle.
-*   **Inputs:** Number input for ID, Searchable Dropdown for Unit selection.
-*   **Button:** Full-width Gradient Pill Button: "כניסה למערכת".
+### The "CPRGO Save Button" (Gradient)
+```css
+background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+border-radius: 999px;
+padding: 14px 28px;
+box-shadow: 0 6px 16px rgba(255, 107, 107, 0.25);
+color: #FFFFFF;
+font-weight: 700;
+```
 
-### Screen 2: Patient List (ניהול אירוע)
-*   **Ingestion Panel (Top):** Large card with two massive actionable areas:
-    1.  **OCR Scan:** Camera icon + "סריקת טופס 106".
-    2.  **Upload:** Upload icon + "העלאת קובץ דיגיטלי".
-*   **Status Bar:** Inline loader animation ("מנתח קובץ...").
-*   **Patient Grid (Bottom):** Cards for active patients.
-    *   **Header:** Patient ID (e.g., "אלפא-01") + Status Badge (Critical/Safe).
-    *   **Body:** Grid of metrics: T-Time (Injury time), HR (Last Pulse), Primary Injury.
-    *   **Footer:** "למעבר לתיק הפצוע ←" (Active Blue).
+### The "Pill Row" (Accordion Base)
+```css
+background-color: #1A1A1A; /* --bg-panel-light */
+border: 1px solid #2D2D2D;
+border-radius: 999px;
+padding: 16px 24px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+```
 
-### Screen 3: Patient Dashboard (דשבורד פצוע - מ.נ.מ.ט)
-*   **MIST Grid:** 4-card layout mapping to Mechanism, Injuries, Signs, Treatments.
-*   **Sign/Vitals Card:** 4-box grid (Heart Rate, BP, SpO2, Resp Rate) with large numbers and colored trend indicators (↑/↓).
-*   **Treatment/Injury Lists:** Pill-shaped rows with icons and chevrons (interactive/expandable feel).
-*   **AI Assistant (Bottom):** Chat-style interface. AI response bubble highlighted with source validation badge.
-
-### Screen 4: Medical Card (כרטיס רפואי)
-*   **Timeline View:** Vertical list with time-stamps and colored dots (Actions vs Meds).
-*   **Medication Table:** Clean table with "View Source" buttons for each entry.
-*   **Source Validation Overlay:** Semi-transparent overlay showing a "crop" of the original hand-written document next to the OCR verification.
-*   **Action Button (Top Right):** Gradient "סנכרון סופי לתיק רפואי (EHR)".
-
-### Screen 5: Doctrine Base (תורת רפואה)
-*   **Split View:** Sidebar list of search results vs. Document Viewer.
-*   **Search Bar:** Large top input with Lucide search icon.
-*   **Document Viewer:** High-contrast reading mode with highlighted "AI Summary" box (Bordered with Primary Blue).
+### The "Vital Box" (Dashboard)
+```css
+background-color: #141414;
+border: 1px solid #2D2D2D;
+padding: 20px;
+border-radius: 16px;
+text-align: center;
+```
+*   **Value Text:** `36px`, ExtraBold (800).
+*   **Label Text:** `12px`, Bold (700), Color: `#9E9E9E`.
 
 ---
 
-## 4. Key Interactive Components
+## 5. View Hierarchies
 
-1.  **The "CPRGO Pill Row":** A container with `16px 24px` padding, fully rounded, with a chevron-down on the left and primary data on the right.
-2.  **The "Active Pulse":** A ring animation around icons when processing (OCR/Sync).
-3.  **Contextual Sidebar:** When path is `/patient/:id/*`, the sidebar adds a new section: "Current Patient: [ID]" with specific sub-links.
+### Navigation Sidebar
+1.  **Header (72px height):** "רפואה דיגיטלית" (26px Bold) + Wifi Icon (14px).
+2.  **Nav Items:** 52px height, 16px horizontal padding. Active state: `#00A3FF` with 15% opacity background.
+3.  **Profile Pill (Bottom):** 64px height, contains 32px avatar + 14px Name + 12px Role.
+
+### Patient List Grid
+*   **Card Header:** 20px Bold ID + 13px Bold Badge.
+*   **Data Rows:** Icon (16px) + Value (15px Bold) + Label (13px Regular, aligned left).
+*   **Footer Link:** 13px Bold, Left Aligned, 70% opacity.
+
+---
+
+## 6. Iconography (Lucide Set)
+*   **Stroke Width:** `2px` for all icons.
+*   **Sizes:**
+    *   Global Icons: `20px`.
+    *   Dashboard Large: `32px`.
+    *   Inline Small: `16px`.
