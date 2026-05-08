@@ -24,7 +24,7 @@ This document provides exact technical values and CSS properties to ensure 100% 
 
 ## 2. Typography (Assistant Font)
 
-*   **View Titles:** `32px`, ExtraBold (800), Letter-spacing: `0.5px`.
+*   **View Titles:** `32px`, ExtraBold (800), Letter-spacing: `0.5px`. (e.g., "בינת הפקודות")
 *   **Card Titles:** `18px`, Bold (700), Color: `white`.
 *   **Body Text:** `15px`, Regular (400), Line-height: `1.6`.
 *   **Pill Text:** `14px`, Bold (700).
@@ -114,5 +114,9 @@ text-align: center;
 *   **Official Source Badge:** "דוקטרינה מאושרת" (Approved Doctrine).
 *   **Unit Profile:** "סרן תומר קנובלר" (Captain Tomer Knobler).
 *   **System Name:** "רפואה דיגיטלית" (Digital Medicine).
+*   **Module Name:** "בינת הפקודות" (AI Protocol Intelligence).
+*   **AI Model Label:** "מודל ידע מבוסס AI"
+
+
 
 

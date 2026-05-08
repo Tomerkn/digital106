@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   const globalNavItems = [
     { path: '/', name: 'ניהול אירוע', icon: Shield },
-    { path: '/doctrine', name: 'תורת רפואה', icon: BookOpen },
+    { path: '/doctrine', name: 'בינת הפקודות', icon: BookOpen },
   ];
 
   const patientNavItems = patientId ? [

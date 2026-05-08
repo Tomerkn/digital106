@@ -17,7 +17,7 @@ const DoctrineBase = () => {
     <div className="view-container doctrine-container">
       <div className="view-header">
         <div>
-          <h1 className="view-title">תורת רפואה <span className="text-secondary" style={{marginRight: '16px'}}>מודול ידע מבוסס AI</span></h1>
+          <h1 className="view-title">בינת הפקודות <span className="text-secondary" style={{marginRight: '16px'}}>מודל ידע מבוסס AI</span></h1>
           <div style={{marginTop: '8px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 600, fontSize: '14px'}}>
             <BrainCircuit size={16} className="text-active" /> חיפוש וקטורי פעיל
           </div>
