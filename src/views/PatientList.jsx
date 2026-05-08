@@ -5,24 +5,36 @@ import './PatientList.css';
 
 const PatientList = () => {
   const navigate = useNavigate();
-  const [isScanning, setIsScanning] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [scanResult, setScanResult] = useState(null);
+  const [processType, setProcessType] = useState('scan'); // 'scan' | 'upload'
 
   const activePatients = [
     { id: 'alpha-01', name: 'אלפא-01', status: 'דחוף', time: 'T+00:14', hr: 135, injuries: 'דימום מסיבי' },
     { id: 'bravo-02', name: 'בראבו-02', status: 'יציב', time: 'T+01:20', hr: 82, injuries: 'רסיס בגפה' }
   ];
 
-  const handleScan = () => {
-    setIsScanning(true);
+  const handleProcess = (type, targetPatientId) => {
+    setProcessType(type);
+    setIsProcessing(true);
     // Simulate OCR and AI association
     setTimeout(() => {
-      setIsScanning(false);
-      setScanResult('alpha-01');
+      setIsProcessing(false);
+      setScanResult(targetPatientId);
       setTimeout(() => {
-        navigate('/patient/alpha-01/hub');
+        navigate(`/patient/${targetPatientId}/hub`);
       }, 1500);
     }, 2000);
+  };
+
+  const triggerFileUpload = () => {
+    document.getElementById('file-upload').click();
+  };
+
+  const handleFileUpload = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      handleProcess('upload', 'bravo-02');
+    }
   };
 
   return (
@@ -39,8 +51,8 @@ const PatientList = () => {
       {/* Auto-Ingestion Section */}
       <div className="card ingestion-panel" style={{ marginBottom: '40px', padding: '24px' }}>
         <div className="ingestion-flex">
-          <div className="ingestion-action" onClick={handleScan}>
-            <div className={`action-icon ${isScanning ? 'scanning-pulse' : ''}`}>
+          <div className="ingestion-action" onClick={() => handleProcess('scan', 'alpha-01')}>
+            <div className={`action-icon ${isProcessing && processType === 'scan' ? 'scanning-pulse' : ''}`}>
               <Camera size={32} className="text-active" />
             </div>
             <div className="action-text">
@@ -51,8 +63,15 @@ const PatientList = () => {
 
           <div className="ingestion-divider"></div>
 
-          <div className="ingestion-action dropzone">
-            <div className="action-icon">
+          <div className="ingestion-action dropzone" onClick={triggerFileUpload}>
+            <input 
+              type="file" 
+              id="file-upload" 
+              style={{ display: 'none' }} 
+              onChange={handleFileUpload} 
+              accept=".pdf,.docx,.jpg,.png" 
+            />
+            <div className={`action-icon ${isProcessing && processType === 'upload' ? 'scanning-pulse' : ''}`}>
               <Upload size={32} className="text-secondary" />
             </div>
             <div className="action-text">
@@ -62,10 +81,10 @@ const PatientList = () => {
           </div>
         </div>
 
-        {isScanning && (
+        {isProcessing && (
           <div className="scan-status active">
             <div className="loader"></div>
-            <span>מפענח טקסט (OCR) ומשייך לפצוע מתאים...</span>
+            <span>{processType === 'scan' ? 'מפענח טקסט (OCR) מתוך תמונה...' : 'מנתח קובץ דיגיטלי...'} ומשייך לפצוע מתאים...</span>
           </div>
         )}
         
