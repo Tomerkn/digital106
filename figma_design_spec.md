@@ -117,5 +117,46 @@ text-align: center;
 *   **Module Name:** "בינת הפקודות" (AI Protocol Intelligence).
 *   **AI Model Label:** "מודל ידע מבוסס AI"
 
+---
+
+## 8. Trust & Evaluation Components (שכבת האמון)
+
+### Confidence Score Badge
+*   **Style:** Pill badge with 10% opacity background.
+*   **Colors:** 
+    *   `> 85%`: Green (`#00C853`)
+    *   `< 85%`: Red (`#D32F2F`)
+*   **Label:** "רמת ביטחון: [XX]%"
+
+### Source Fragment Overlay
+*   **Spec:** Side-by-side comparison modal.
+*   **Left side:** Original document crop (Handwritten).
+*   **Right side:** AI extracted text (Clean).
+*   **Overlay Effect:** Backdrop blur `10px`, Z-index `9999`.
+
+---
+
+## 9. Pipeline & Connectivity Status
+
+### Processing States (Pill Status)
+1.  **Decoding:** "פענוח טופס... (Textract)" + Spinner.
+2.  **Indexing:** "מסנכרן לידע מבצעי... (Pinecone)" + Pulse.
+3.  **Ready:** "מוכן לשאילתות" + Checkmark.
+
+### Connectivity & Sync
+*   **HealthLake Sync Icon:** Cloud icon next to patient name. 
+    *   *Solid:* Synced to Cloud.
+    *   *Outline/Dashed:* Local/Offline only.
+*   **Offline Banner:** Fixed top banner, 32px height, Background: `#D32F2F`, Text: "מצב אופליין - בינה מלאכותית מבוססת ידע מקומי בלבד".
+
+---
+
+## 10. AI Query Interface (Chat UI)
+*   **Input Field:** 56px height, rounded pill, Includes `Mic` icon (Right) and `Send` icon (Left).
+*   **Message Bubbles:** 
+    *   *User:* Deep Grey (`#222222`).
+    *   *AI:* Deep Blue Tint (`#002244`).
+    *   *Citations:* Inline "Source Tiles" with hover effect to open Source Fragment Overlay.
+
 
 

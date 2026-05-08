@@ -2,16 +2,20 @@
 FROM node:20-alpine as build
 WORKDIR /app
 COPY package*.json ./
-# Since we might have peer dependency issues, we'll use --legacy-peer-deps
 RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
-# Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-# Copy the built React app
-COPY --from=build /app/dist /usr/share/nginx/html
-# Run Nginx
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production --legacy-peer-deps
+# Copy the build output from the build stage
+COPY --from=build /app/dist ./dist
+# Copy the server file
+COPY server.js ./
+# Expose the port
+EXPOSE 3000
+# Run the server
+CMD ["node", "server.js"]

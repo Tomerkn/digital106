@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Shield, Activity, FileText, BookOpen, User, Wifi, LogOut } from 'lucide-react';
+import { Shield, Activity, FileText, BookOpen, User, Wifi, LogOut, AlertTriangle } from 'lucide-react';
 
 import Login from './views/Login';
 import PatientList from './views/PatientList';
@@ -10,7 +10,12 @@ import DoctrineBase from './views/DoctrineBase';
 
 import './App.css';
 
-const Sidebar = () => {
+// Add handwriting font for Source Validation
+const style = document.createElement('style');
+style.innerHTML = "@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');";
+document.head.appendChild(style);
+
+const Sidebar = (props) => {
   const location = useLocation();
 
   const isPatientRoute = location.pathname.startsWith('/patient/');
@@ -31,9 +36,13 @@ const Sidebar = () => {
     <div className="sidebar bg-panel border-panel">
       <Link to="/" className="sidebar-header" style={{textDecoration: 'none', display: 'block', color: 'inherit'}}>
         <div className="unit-badge">רפואה דיגיטלית</div>
-        <div className="connection-status flex-center text-safe" style={{ justifyContent: 'flex-start' }}>
+        <div 
+          className={`connection-status flex-center ${props.isOffline ? 'text-critical' : 'text-safe'}`} 
+          style={{ justifyContent: 'flex-start', cursor: 'pointer' }}
+          onClick={props.onToggleOffline}
+        >
           <Wifi size={14} style={{ marginLeft: '6px' }} />
-          <span>תקשורת מאובטחת</span>
+          <span>{props.isOffline ? 'מצב אופליין' : 'תקשורת מאובטחת'}</span>
         </div>
       </Link>
       
@@ -95,10 +104,19 @@ const Sidebar = () => {
 };
 
 const AppLayout = () => {
+  const [isOffline, setIsOffline] = useState(false);
+
   return (
     <div className="app-layout">
-      <Sidebar />
-      <main className="main-content">
+      {isOffline && (
+        <div className="offline-banner">
+          <AlertTriangle size={14} style={{marginLeft: '8px'}} />
+          מצב אופליין - בינה מלאכותית מבוססת ידע מקומי בלבד
+          <button onClick={() => setIsOffline(false)} style={{marginRight: 'auto', background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontWeight: 800}}>X</button>
+        </div>
+      )}
+      <Sidebar onToggleOffline={() => setIsOffline(!isOffline)} isOffline={isOffline} />
+      <main className="main-content" style={{marginTop: isOffline ? '32px' : '0'}}>
         <Routes>
           <Route path="/" element={<PatientList />} />
           <Route path="/patient/:id/hub" element={<PatientHub />} />

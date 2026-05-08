@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Upload, UserRound, Activity, Clock, ShieldAlert } from 'lucide-react';
+import { Camera, Upload, UserRound, Activity, Clock, ShieldAlert, Cloud } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './PatientList.css';
 
@@ -9,6 +9,7 @@ const PatientList = () => {
   const [scanResult, setScanResult] = useState(null);
   const [processType, setProcessType] = useState('scan'); // 'scan' | 'upload'
   const [progress, setProgress] = useState(0);
+  const [processingState, setProcessingState] = useState('decoding'); // 'decoding' | 'indexing' | 'ready'
 
   const activePatients = [
     { id: 'alpha-01', name: 'אלפא-01', status: 'דחוף', time: 'T+00:14', hr: 135, injuries: 'דימום מסיבי' },
@@ -21,16 +22,20 @@ const PatientList = () => {
     setProgress(0);
     setScanResult(null);
 
-    // Simulate progress increment
+    // Simulate progress and states
     const interval = setInterval(() => {
       setProgress(prev => {
+        if (prev < 40) setProcessingState('decoding');
+        else if (prev < 90) setProcessingState('indexing');
+        else setProcessingState('ready');
+
         if (prev >= 98) {
           clearInterval(interval);
           return 98;
         }
-        return prev + Math.floor(Math.random() * 15) + 5;
+        return prev + Math.floor(Math.random() * 10) + 2;
       });
-    }, 200);
+    }, 150);
 
     // Simulate OCR and AI association completion
     setTimeout(() => {
@@ -102,7 +107,11 @@ const PatientList = () => {
           <div className="scan-status active" style={{flexDirection: 'column', gap: '12px'}}>
             <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
               <div className="loader"></div>
-              <span>{processType === 'scan' ? 'מפענח טקסט (OCR) מתוך תמונה...' : 'מנתח קובץ דיגיטלי...'} ומשייך לפצוע מתאים...</span>
+              <span>
+                {processingState === 'decoding' && 'פענוח טופס... (AWS Textract)'}
+                {processingState === 'indexing' && 'מסנכרן לידע מבצעי... (Vector DB)'}
+                {processingState === 'ready' && 'מוכן לשאילתות!'}
+              </span>
             </div>
             <div style={{width: '100%', background: 'var(--bg-panel-hover)', height: '4px', borderRadius: '2px', overflow: 'hidden'}}>
               <div style={{width: `${progress}%`, height: '100%', background: 'var(--color-active)', transition: 'width 0.3s ease'}}></div>
@@ -132,11 +141,14 @@ const PatientList = () => {
             onClick={() => navigate(`/patient/${patient.id}/hub`)}
           >
             <div className="patient-card-header">
-              <div className="patient-id">{patient.name}</div>
-              <div className={`badge ${patient.status === 'דחוף' ? 'badge-critical' : 'badge-safe'}`}>
-                {patient.status}
+                <div className="patient-id">{patient.id}</div>
+                <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+                  <div className={`badge ${patient.status === 'דחוף' ? 'badge-critical' : 'badge-safe'}`}>
+                    {patient.status}
+                  </div>
+                  <Cloud size={16} className={patient.id === 'alpha-01' ? 'text-safe' : 'text-secondary'} style={{opacity: patient.id === 'alpha-01' ? 1 : 0.5}} />
+                </div>
               </div>
-            </div>
             
             <div className="patient-card-body">
               <div className="info-row">

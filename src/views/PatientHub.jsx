@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Activity, AlertTriangle, ShieldAlert, Crosshair, Send, MessageSquare, ChevronDown, BookOpen, FileText } from 'lucide-react';
+import { Activity, AlertTriangle, ShieldAlert, Crosshair, Send, MessageSquare, ChevronDown, BookOpen, FileText, Mic } from 'lucide-react';
 import './PatientHub.css';
 
 const PatientHub = () => {
+  const [activeTab, setActiveTab] = useState('summary');
+  const [showSourceOverlay, setShowSourceOverlay] = useState(false);
+  const [confidence] = useState(94); // Mock RAGAS score
   const [chatInput, setChatInput] = useState('');
 
   return (
@@ -138,6 +141,11 @@ const PatientHub = () => {
             <div className="message ai-message" style={{marginTop: '16px'}}>
               <div className="message-sender">מערכת <span className="text-safe" style={{marginRight: '8px'}}>✓ מאומת</span></div>
               <div className="message-bubble border-safe">
+                <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px'}}>
+                  <div className={`badge ${confidence > 85 ? 'badge-safe' : 'badge-critical'}`} style={{background: 'rgba(0, 200, 83, 0.1)', fontSize: '11px', padding: '2px 8px'}}>
+                    רמת ביטחון: {confidence}% (RAGAS)
+                  </div>
+                </div>
                 <strong>אפס (0 מ״ג) מורפיום ניתן.</strong><br/><br/>
                 הערה: הפצוע קיבל <strong>פנטניל 800mcg (סוכריה)</strong> ב- T+12:00. <br/>
                 בדיקת התוויות נגד: הפצוע במצב של תת-לחץ דם (85/50). הימנע מנרקוטיקה נוספת; מומלץ מתן קטמין 50mg IM/IN במידה ונדרש שיכוך כאבים נוסף ע״פ הנחיות TCCC.
@@ -145,11 +153,11 @@ const PatientHub = () => {
                 <div style={{marginTop: '16px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.1)'}}>
                   <div style={{fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '8px', fontWeight: 700, letterSpacing: '0.5px'}}>סימוכין ודוקטרינה:</div>
                   <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                    <div className="source-tile">
+                    <div className="source-tile" onClick={() => setShowSourceOverlay(true)}>
                       <BookOpen size={12} />
                       <span>פרוטוקול TCCC 2024</span>
                     </div>
-                    <div className="source-tile">
+                    <div className="source-tile" onClick={() => setShowSourceOverlay(true)}>
                       <FileText size={12} />
                       <span>פקודת קרפ״ר 1982/ג</span>
                     </div>
@@ -159,20 +167,53 @@ const PatientHub = () => {
             </div>
           </div>
           
-          <div className="chat-input-area">
+          <div className="chat-input-wrapper">
+            <Mic size={20} className="text-secondary hover:text-active cursor-pointer" style={{marginLeft: '12px'}} />
             <input 
               type="text" 
-              className="input-field" 
-              placeholder="חפש נתוני פצוע או פרוטוקולי TCCC..."
+              className="chat-input" 
+              placeholder="שאל את הבינה על הטיפול..."
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
             />
-            <button className="btn btn-active" style={{padding: '0 24px'}}>
-              <Send size={18} style={{ transform: 'scaleX(-1)' }} />
+            <button className="send-btn">
+              <Send size={18} />
             </button>
           </div>
         </div>
       </div>
+
+      {/* Source Fragment Overlay */}
+      {showSourceOverlay && (
+        <div className="modal-overlay" onClick={() => setShowSourceOverlay(false)}>
+          <div className="modal-content card" onClick={e => e.stopPropagation()} style={{maxWidth: '900px', width: '90%'}}>
+            <div className="modal-header">
+              <h2 className="card-title">אימות מקור (Source Validation)</h2>
+              <button className="text-secondary" onClick={() => setShowSourceOverlay(false)}>סגור</button>
+            </div>
+            <div className="source-comparison">
+              <div className="source-pane">
+                <div className="pane-label">גזיר מקור (Handwritten OCR)</div>
+                <div className="source-image-placeholder">
+                   <div style={{color: '#999', fontSize: '14px'}}>תמונת מקור מ-S3...</div>
+                   <div className="handwriting-mock">Morphine: 0mg, Fentanyl: 800mcg (LOZ)</div>
+                </div>
+              </div>
+              <div className="source-pane">
+                <div className="pane-label">פענוח AI (Digital Transformation)</div>
+                <div className="source-text-view">
+                   <div className="badge badge-safe" style={{marginBottom: '12px'}}>נאמן למקור (94% Match)</div>
+                   <p><strong>תרופות שניתנו:</strong></p>
+                   <ul>
+                     <li>מורפיום: 0 מ״ג</li>
+                     <li>פנטניל: 800 מק״ג (סוכריה)</li>
+                   </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
