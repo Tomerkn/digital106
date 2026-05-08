@@ -118,13 +118,13 @@ const PatientList = () => {
             <div className="patient-card-body">
               <div className="info-row">
                 <Clock size={16} className="text-secondary" />
-                <span className="font-mono">{patient.time}</span>
+                <span>{patient.time}</span>
                 <span className="text-secondary text-sm" style={{marginRight: 'auto'}}>זמן פציעה</span>
               </div>
               
               <div className="info-row">
                 <Activity size={16} className="text-secondary" />
-                <span className="font-mono text-active">{patient.hr} BPM</span>
+                <span className="text-active">{patient.hr} BPM</span>
                 <span className="text-secondary text-sm" style={{marginRight: 'auto'}}>דופק אחרון</span>
               </div>
 

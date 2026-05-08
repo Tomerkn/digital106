@@ -121,7 +121,7 @@ const CasualtyCard = () => {
                 <td style={{fontWeight: 'bold'}}>הקסאקפרון</td>
                 <td>1g</td>
                 <td>וריד</td>
-                <td className="font-mono">14:20</td>
+                <td>14:20</td>
                 <td>
                   <button onClick={() => setShowOverlay(true)} className="link-btn">
                     <Eye size={14} style={{marginLeft: '4px'}} /> הצג
@@ -132,7 +132,7 @@ const CasualtyCard = () => {
                 <td style={{fontWeight: 'bold'}}>פנטניל</td>
                 <td>800mcg</td>
                 <td>מתחת ללשון</td>
-                <td className="font-mono">14:35</td>
+                <td>14:35</td>
                 <td>
                   <button onClick={() => setShowOverlay(true)} className="link-btn">
                     <Eye size={14} style={{marginLeft: '4px'}} /> הצג

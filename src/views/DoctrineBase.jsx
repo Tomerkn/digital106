@@ -65,7 +65,7 @@ const DoctrineBase = () => {
         <div className="card viewer-card">
           <div className="card-title" style={{display: 'flex', justifyContent: 'space-between'}}>
             <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}><FileText size={18} /> מציג מסמכים</div>
-            <div className="text-active font-mono" style={{fontSize: '12px'}}>{selectedDoc.title}</div>
+            <div className="text-active" style={{fontSize: '12px', fontWeight: 600}}>{selectedDoc.title}</div>
           </div>
           
           <div className="document-page">
